@@ -3,8 +3,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
 export const Header = () => (
-  <Navbar bg="dark" variant="dark" sticky="top" expand="sm">
-    <Navbar.Brand href="">InterPals</Navbar.Brand>
+  <Navbar bg="dark" variant="dark" sticky="top" expand="sm" className="mb-4">
+    <Navbar.Brand href="">FarFriends</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
