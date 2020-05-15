@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -80,14 +81,7 @@ export const SearchPage = () => {
             <Button>Submit</Button>
           </Form>
         </Col>
-        <Col>
-          <ListGroup>
-            <ListGroup.Item action>Person 1</ListGroup.Item>
-            <ListGroup.Item action>Person 2</ListGroup.Item>
-            <ListGroup.Item action>Person 3</ListGroup.Item>
-            <ListGroup.Item action>Person 4</ListGroup.Item>
-          </ListGroup>
-        </Col>
+        <Col>Online Users</Col>
       </Row>
     </Container>
   );
