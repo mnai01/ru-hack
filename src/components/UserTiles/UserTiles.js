@@ -3,7 +3,7 @@ import UserTile from "./UserTile/UserTile";
 import data from "../../assets/Data.json";
 import { userContext } from "../../userContext";
 const UserTiles = () => {
-  let msg = userContext(userContext);
+  let msg = useContext(userContext);
 
   useEffect(() => {
     setData(data);
