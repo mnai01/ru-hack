@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Header from "./components/Header/Header";
 import UserInfo from "./components/UserInfo/userinfo";
 import LandingPage from "./components/LandingPage/LandingPage";
@@ -12,11 +12,18 @@ import {
 import UserFilter from "./components/UserFilter/UserFilter";
 import UserTile from "./components/UserTiles/UserTile/UserTile";
 import SearchPage from "./components/SearchPage/SearchPage";
-import { UseContext } from "./UseContext";
+import { userContext } from "./userContext";
 
 function App() {
-  const [value, setValue] = useState("hello");
+  const [userInfo, setUserInfo] = useState(null);
   const [auth, setAuth] = useState(true);
+
+  // Helps with optimization
+  const value = useMemo(() => ({ userInfo, setUserInfo }), [
+    userInfo,
+    setUserInfo,
+  ]);
+
   const PrivateRoute = ({ component: Component, ...rest }) => {
     return (
       <Route
@@ -33,7 +40,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <UseContext.Provider>
+          <userContext.Provider value={value}>
             <Route exact path="/" component={LandingPage} />
             <PrivateRoute
               exact
@@ -53,7 +60,7 @@ function App() {
               component={SearchPage}
               auth={auth}
             />
-          </UseContext.Provider>
+          </userContext.Provider>
         </Switch>
       </Router>
     </div>
