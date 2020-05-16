@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import data from "./assets/Data.json";
 
-export const UseContext = React.createContext({ lang: "en", foo: "bar" });
+export const userContext = React.createContext("default value");
 
 // The Provider component is what makes the state available to all child components,
 // no matter how deeply nested they are within the component hierarchy.
