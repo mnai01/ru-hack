@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import {
-  FormGroup,
-  ListGroup,
-  Button,
   Container,
   Form,
-  Card,
   Col,
-  Row,
 } from "react-bootstrap";
 import classes from "./UserFilter.module.css";
 
@@ -18,96 +13,107 @@ const check = (e) => {
 
 export const SearchPage = () => {
   return (
-    <Container className={classes.filterForm}>
-      <Form>
-        <Form.Row>
-          <FormGroup as={Col} sm={2}>
-            <Form.Label>Age</Form.Label>
-          </FormGroup>
-        </Form.Row>
-
-        <Form.Row>
-          <Form.Group as={Col} sm={2} controlId="formGridCity">
-            <Form.Control type="number" min="18" placeholder="From" />
-          </Form.Group>
-
-          <Form.Group as={Col} sm={2} controlId="formGridCity">
-            <Form.Control type="number" max="110" placeholder="To" />
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-          <Form.Group as={Col} sm={2} controlId="formGridCity"></Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-          <Form.Label as={Col} xs={0}>
-            Sex:{" "}
+    <Container className="p-0">
+      <Form className={classes.filterForm}>
+        <Form.Group>
+          <Form.Label>
+            <strong>User Name</strong>
           </Form.Label>
-
-          <Form.Group as={Col} sm={2} controlId="formSex">
-            <Form.Check inline label="M" />
-            <Form.Check inline label="F" />
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-          <Form.Group as={Col} xs={0} controlId="formPictureOnly">
-            <Form.Label>With picture only: </Form.Label>
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formPictureOnly">
-            <Form.Check inline />
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-          <Form.Group as={Col} sm={2} controlId="formCountry">
-            <Form.Label>Country</Form.Label>
-            <Form.Control as="select" defaultValue="Choose...">
-              <option>Choose...</option>
-              <option>...</option>
-            </Form.Control>
-          </Form.Group>
-          <Form.Group as={Col} sm={2} controlId="formState">
-            <Form.Label>State</Form.Label>
-            <Form.Control as="select" defaultValue="Choose...">
-              <option>Choose...</option>
-              <option>...</option>
-            </Form.Control>
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-          <Form.Group as={Col} sm={2} controlId="formLanguage">
-            <Form.Label>Language</Form.Label>
-            <Form.Control as="select" defaultValue="Choose...">
-              <option>Choose...</option>
-              <option>...</option>
-            </Form.Control>
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-          <FormGroup as={Col}>
-            <Form.Check type="checkbox" label="Languages I speak" />
-            <Form.Check type="checkbox" label="Native speakers only" />
-          </FormGroup>
-        </Form.Row>
-
-        <Form.Row>
-          <Form.Group as={Col} sm={2} controlId="formLanguage">
-            <Form.Label>Looking for:</Form.Label>
-            <FormGroup>
-              <Form.Check type="checkbox" label="Pens pals" />
-              <Form.Check type="checkbox" label="Friends" />
-              <Form.Check type="checkbox" label="Language practice" />
-              <Form.Check type="checkbox" label="Meeting in person" />
-            </FormGroup>
-          </Form.Group>
-        </Form.Row>
-
-        <Button>Submit</Button>
+          <Form.Control type="text" name="userName" placeholder="joe123" />
+        </Form.Group>
+        <hr />
+        <Form.Group>
+          <Form.Label>
+            <strong>Age</strong>
+          </Form.Label>
+          <Form.Row>
+            <Col>
+              <Form.Control
+                type="number"
+                name="ageMin"
+                placeholder="Min Age"
+                min="18"
+                max="130"
+              />
+            </Col>
+            <Col>
+              <Form.Control
+                type="number"
+                name="ageMax"
+                placeholder="Max Age"
+                min="18"
+                max="130"
+              />
+            </Col>
+          </Form.Row>
+        </Form.Group>
+        <hr />
+        <Form.Group>
+          <Form.Label>
+            <strong>Gender</strong>
+          </Form.Label>
+          <br />
+          <Form.Check
+            inline
+            label="Male"
+            type="radio"
+            name="gender"
+            value="male"
+          />
+          <Form.Check
+            inline
+            label="Female"
+            type="radio"
+            name="gender"
+            value="female"
+          />
+          <Form.Check
+            inline
+            label="Any"
+            type="radio"
+            name="gender"
+            value=""
+            checked
+          />
+        </Form.Group>
+        <hr />
+        <Form.Group>
+          <Form.Label>
+            <strong>Location</strong>
+          </Form.Label>
+          <Form.Control as="select">
+            <option disabled selected>
+              Choose Country...
+            </option>
+            {/* Country list goes here */}
+          </Form.Control>
+        </Form.Group>
+        <hr />
+        <Form.Group>
+          <Form.Label>
+            <strong>Language</strong>
+          </Form.Label>
+          <Form.Control as="select" name="languages">
+            <option disabled selected>
+              Choose Language...
+            </option>
+            {/* Language list goes here */}
+          </Form.Control>
+        </Form.Group>
+        <hr />
+        <Form.Group>
+          <Form.Label>
+            <strong>Other</strong>
+          </Form.Label>
+          <br />
+          <Form.Check
+            inline
+            label="Must have photo"
+            type="checkbox"
+            name="photo"
+            value="photosOnly"
+          />
+        </Form.Group>
       </Form>
     </Container>
   );
