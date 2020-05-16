@@ -9,11 +9,12 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-
-import SearchPage from "./components/SearchPage/SearchPage";
+import UserFilter from "./components/UserFilter/UserFilter";
 import UserTile from "./components/UserTiles/UserTile/UserTile";
+import SearchPage from "./components/SearchPage/SearchPage";
+
 function App() {
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(true);
   const PrivateRoute = ({ component: Component, ...rest }) => {
     return (
       <Route
@@ -30,10 +31,27 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route exact path="/" component={UserInfo} />
+          <Route exact path="/" component={LandingPage} />
+          <PrivateRoute
+            exact
+            path="/Profile"
+            component={UserInfo}
+            auth={auth}
+          />
+          <PrivateRoute
+            exact
+            path="/Messages"
+            component={UserTile}
+            auth={auth}
+          />
+          <PrivateRoute
+            exact
+            path="/SearchPage"
+            component={SearchPage}
+            auth={auth}
+          />
         </Switch>
       </Router>
-      <LandingPage />
     </div>
   );
 }
