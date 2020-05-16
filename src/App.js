@@ -10,6 +10,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
+import SearchPage from "./components/SearchPage/SearchPage";
+import UserTile from "./components/UserTiles/UserTile/UserTile";
 function App() {
   const [auth, setAuth] = useState(false);
   const PrivateRoute = ({ component: Component, ...rest }) => {
