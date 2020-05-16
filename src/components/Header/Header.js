@@ -1,10 +1,12 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-
+import { BrowserRouter as Router, Link } from "react-router-dom";
 export const Header = () => (
   <Navbar bg="dark" variant="dark" sticky="top" expand="sm">
-    <Navbar.Brand href="">InterPals</Navbar.Brand>
+    <Navbar.Brand href="">
+      <Link to={"/"}>Interpals</Link>
+    </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
