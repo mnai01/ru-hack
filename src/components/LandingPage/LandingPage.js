@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { userContext } from "../../userContext";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../userContext";
 import {
   Row,
   Col,
@@ -15,16 +15,16 @@ import classes from "./LandingPage.module.css";
 import { testdatacall } from "../../testDataCall";
 
 const LandingPage = () => {
-  const { userInfo, setUserInfo } = useContext(userContext);
-
+  const { user, getUser } = useContext(UserContext);
+  const [userInfo, setUserInfo] = useState([]);
   useEffect(() => {
     setTimeout(async () => {
       const data = await testdatacall();
       await setUserInfo(data);
-      console.log(data);
     }, 2000);
+    getUser();
   }, []);
-
+  console.log(user);
   return (
     <Container fluid className="p-5">
       <Row>
