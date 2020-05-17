@@ -25,6 +25,7 @@ const LandingPage = (props) => {
 
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
+  const [status, setStatus] = useState();
 
   const [userInfo, setUserInfo] = useState([]);
   useEffect(() => {
@@ -32,6 +33,7 @@ const LandingPage = (props) => {
     if (currentUser !== undefined) {
       if (currentUser.id !== null && currentUser.id !== undefined) {
         props.handleAuth(true);
+        setStatus("Success!");
       } else {
         props.handleAuth(false);
       }
@@ -89,14 +91,18 @@ const LandingPage = (props) => {
               <Form.Group controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Check me out" />
               </Form.Group>
+              {status === "Success!" ? (
+                <h5>Your are now logged in</h5>
+              ) : (
+                <Button
+                  variant="primary"
+                  type="submit"
+                  onClick={handleSubmitLogin}
+                >
+                  Submit
+                </Button>
+              )}
 
-              <Button
-                variant="primary"
-                type="submit"
-                onClick={handleSubmitLogin}
-              >
-                Submit
-              </Button>
               <RegisterModal />
             </Form>
           </Card>
