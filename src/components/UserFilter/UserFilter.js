@@ -1,31 +1,44 @@
 import React, { useState } from "react";
-import { Container, Form, Col } from "react-bootstrap";
+import { Container, Form, Col, Button } from "react-bootstrap";
 import classes from "./UserFilter.module.css";
 import { countryOptions } from "../../CountryData";
 import { languageOptions } from "../../LanguageData";
 
-const check = (e) => {
-  e.preventDefault();
-  console.log(e.target.value);
-};
-
-const countries = countryOptions;
-
-const ages = [];
-
-for (let i = 18; i <= 110; i++) {
-  ages.push(<option value="{i}">{i}</option>);
-}
-
 export const SearchPage = () => {
+  const countries = countryOptions;
+
+  const ages = [];
+
+  for (let i = 18; i <= 110; i++) {
+    ages.push(<option value="{i}">{i}</option>);
+  }
+
+  const [username, setUsername] = useState("");
+  const [minAge, setMinAge] = useState("");
+  const [maxAge, setMaxAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [location, setLocation] = useState("");
+  const [language, setLanguage] = useState("");
+  const [hasPhoto, setHasPhoto] = useState(false);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    let age = 66;
+    setMaxAge(age);
+  };
   return (
     <Container className="p-0">
-      <Form className={classes.filterForm}>
+      <Form className={classes.filterForm} onSubmit={(e) => submitHandler(e)}>
         <Form.Group>
           <Form.Label>
             <strong>User Name</strong>
           </Form.Label>
-          <Form.Control type="text" name="userName" placeholder="Username" />
+          <Form.Control
+            type="text"
+            name="userName"
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </Form.Group>
         <hr />
         <Form.Group>
@@ -34,7 +47,12 @@ export const SearchPage = () => {
           </Form.Label>
           <Form.Row>
             <Col>
-              <Form.Control as="select">
+              <Form.Control
+                as="select"
+                onChange={(e) => {
+                  setMinAge(e.target.value);
+                }}
+              >
                 <option disabled selected>
                   Min age
                 </option>
@@ -42,7 +60,10 @@ export const SearchPage = () => {
               </Form.Control>
             </Col>
             <Col>
-              <Form.Control as="select">
+              <Form.Control
+                as="select"
+                onChange={(e) => setMaxAge(e.target.value)}
+              >
                 <option disabled selected>
                   Max age
                 </option>
@@ -73,11 +94,11 @@ export const SearchPage = () => {
           />
           <Form.Check
             inline
-            label="Any"
+            label="Both"
             type="radio"
             name="gender"
-            value=""
-            checked
+            value="both"
+            defaultChecked
           />
         </Form.Group>
         <hr />
@@ -118,6 +139,7 @@ export const SearchPage = () => {
             value="photosOnly"
           />
         </Form.Group>
+        <Button type="submit">Submit</Button>
       </Form>
     </Container>
   );
