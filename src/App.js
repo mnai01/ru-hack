@@ -51,7 +51,7 @@ function App() {
             <PrivateRoute
               exact
               path="/Messages"
-              component={UserTile}
+              component={SearchPage}
               auth={auth}
             />
             <PrivateRoute
