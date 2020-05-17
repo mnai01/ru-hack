@@ -12,6 +12,7 @@ const POST_URL = "https://far-friends.herokuapp.com/api/users";
 const RegisterModal = () => {
   const [validated, setValidated] = useState(false);
   const [show, setShow] = useState(false);
+  const [status, setStatus] = useState();
 
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
@@ -71,12 +72,6 @@ const RegisterModal = () => {
     console.log("learning " + e);
   };
 
-  let config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
   const handlePostRegister = () => {
     let data = {
       userName: username,
@@ -94,10 +89,11 @@ const RegisterModal = () => {
     axios
       .post(POST_URL, data)
       .then((res) => {
-        // setShow(false);
+        setStatus("Successful!");
         console.log(res);
       })
       .catch((err) => {
+        setStatus("Error!");
         console.log(err);
       });
   };
@@ -275,6 +271,7 @@ const RegisterModal = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          <h4>{status}</h4>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
