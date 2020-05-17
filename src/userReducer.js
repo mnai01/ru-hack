@@ -1,12 +1,19 @@
-const getRecent = () => {
-  //axios call here to update date
-  // with data from the API?
-};
-
 export default (state, action) => {
   switch (action.type) {
-    case GET_RECENT:
-      return getRecent();
+    case "GET_USER":
+      console.log(action.payload);
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case "GET_RECENT_ONLINE_USERS":
+      return {
+        ...state,
+      };
+    case "GET_FILTERED_USERS":
+      return {
+        ...state,
+      };
     default:
       return state;
   }
