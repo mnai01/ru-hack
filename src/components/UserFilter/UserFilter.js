@@ -1,31 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, Form, Col, Button } from "react-bootstrap";
+import { UserContext } from "../../userContext";
 import classes from "./UserFilter.module.css";
 import { countryOptions } from "../../CountryData";
 import { languageOptions } from "../../LanguageData";
+import axios from "axios";
 
 export const SearchPage = () => {
+  const { onlineUsers, loading, getFilteredUsers } = useContext(UserContext);
+
   const countries = countryOptions;
 
   const ages = [];
 
   for (let i = 18; i <= 110; i++) {
-    ages.push(<option value="{i}">{i}</option>);
+    ages.push(<option value={i}>{i}</option>);
   }
 
   const [username, setUsername] = useState("");
-  const [minAge, setMinAge] = useState("");
-  const [maxAge, setMaxAge] = useState("");
+  const [minAge, setMinAge] = useState("18");
+  const [maxAge, setMaxAge] = useState("110");
   const [gender, setGender] = useState("");
   const [location, setLocation] = useState("");
   const [language, setLanguage] = useState("");
-  const [hasPhoto, setHasPhoto] = useState(false);
+  const [hasPhoto, setHasPhoto] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
-    let age = 66;
-    setMaxAge(age);
   };
+
+  const handleUsername = (e) => {
+    setUsername(e);
+    console.log(e);
+  };
+
+  const handleMinAge = (e) => {
+    setMinAge(e);
+    console.log(e);
+  };
+
+  const handleMaxAge = (e) => {
+    setMaxAge(e);
+    console.log(e);
+  };
+
+  const handleGender = (e) => {
+    setGender(e);
+    console.log(e);
+  };
+
+  const handleLocation = (e) => {
+    setLocation(e);
+    console.log(e);
+  };
+
+  const handleLanguage = (e) => {
+    setLanguage(e);
+    console.log(e);
+  };
+
+  const handleHasPhoto = (e) => {
+    setHasPhoto(e);
+    console.log(e);
+  };
+
+  const handleGETFiltered = () => {
+    getFilteredUsers(
+      minAge,
+      maxAge,
+      gender,
+      location,
+      language,
+      hasPhoto,
+      username
+    );
+  };
+
   return (
     <Container className="p-0">
       <Form className={classes.filterForm} onSubmit={(e) => submitHandler(e)}>
@@ -37,7 +87,7 @@ export const SearchPage = () => {
             type="text"
             name="userName"
             placeholder="Username"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => handleUsername(e.target.value)}
           />
         </Form.Group>
         <hr />
@@ -50,7 +100,7 @@ export const SearchPage = () => {
               <Form.Control
                 as="select"
                 onChange={(e) => {
-                  setMinAge(e.target.value);
+                  handleMinAge(e.target.value);
                 }}
               >
                 <option disabled selected>
@@ -62,7 +112,7 @@ export const SearchPage = () => {
             <Col>
               <Form.Control
                 as="select"
-                onChange={(e) => setMaxAge(e.target.value)}
+                onChange={(e) => handleMaxAge(e.target.value)}
               >
                 <option disabled selected>
                   Max age
@@ -84,6 +134,7 @@ export const SearchPage = () => {
             type="radio"
             name="gender"
             value="male"
+            onChange={(e) => handleGender(e.target.value)}
           />
           <Form.Check
             inline
@@ -91,13 +142,15 @@ export const SearchPage = () => {
             type="radio"
             name="gender"
             value="female"
+            onChange={(e) => handleGender(e.target.value)}
           />
           <Form.Check
             inline
             label="Both"
             type="radio"
             name="gender"
-            value="both"
+            value=""
+            onChange={(e) => handleGender(e.target.value)}
             defaultChecked
           />
         </Form.Group>
@@ -106,10 +159,11 @@ export const SearchPage = () => {
           <Form.Label>
             <strong>Location</strong>
           </Form.Label>
-          <Form.Control as="select">
-            <option disabled selected>
-              Choose Country...
-            </option>
+          <Form.Control
+            as="select"
+            onChange={(e) => handleLocation(e.target.value)}
+          >
+            <option selected>Choose Country...</option>
             {countries}
           </Form.Control>
         </Form.Group>
@@ -118,7 +172,11 @@ export const SearchPage = () => {
           <Form.Label>
             <strong>Language</strong>
           </Form.Label>
-          <Form.Control as="select" name="languages">
+          <Form.Control
+            as="select"
+            name="languages"
+            onChange={(e) => handleLanguage(e.target.value)}
+          >
             <option disabled selected>
               Choose Language...
             </option>
@@ -137,9 +195,12 @@ export const SearchPage = () => {
             type="checkbox"
             name="photo"
             value="photosOnly"
+            onChange={(e) => handleHasPhoto(e.target.value)}
           />
         </Form.Group>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" onClick={handleGETFiltered}>
+          Submit
+        </Button>
       </Form>
     </Container>
   );
