@@ -15,11 +15,16 @@ export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
 
   //Actions
-  async function getCurrentUser() {
+  async function getCurrentUser(data) {
     try {
-      const res = "";
+      const res = await axios.post(
+        "https://far-friends.herokuapp.com/api/auth",
+        data
+      );
+      console.log("from context");
+      console.log(res.data);
       //dispatch res data to action as payload
-      dispatch({ type: "GET_CURRENT_USER", payload: res });
+      dispatch({ type: "GET_CURRENT_USER", payload: res.data });
     } catch (error) {
       console.log("get user error");
     }
@@ -50,12 +55,24 @@ export const UserProvider = ({ children }) => {
     }
   }
 
-  async function getFilteredUsers() {
+  async function getFilteredUsers(
+    minAge,
+    maxAge,
+    gender,
+    location,
+    language,
+    hasPhoto,
+    username
+  ) {
     try {
       //api call
-      const res = {};
+      const URL = `https://far-friends.herokuapp.com/api/users/search?minAge=${minAge}&maxAge=${maxAge}&gender=${gender}&country=${location}&language=${language}&hasPhoto=${hasPhoto}&username=${username}`;
+      console.log(URL);
+      const res = await axios.get(URL);
+      console.log("from context");
+      console.log(res.data);
       //dispatch res data to action as payload
-      dispatch({ type: "", payload: "" });
+      dispatch({ type: "GET_FILTERED_USERS", payload: res.data });
     } catch (error) {
       //dispatch error action?
     }
