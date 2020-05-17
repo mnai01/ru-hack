@@ -66,7 +66,7 @@ const LandingPage = () => {
           <Card className="p-3">
             <Row className={classes.usersOnlineContainer}>
               {userInfo.map((res) => (
-                <Col xs={4} lg={2}>
+                <Col xs={5} sm={3} md={3} lg={3} xl={2}>
                   <div className={classes.usersOnline}>
                     <Image rounded src={res.photo} alt="" />
                     <Row className={classes.center}>
