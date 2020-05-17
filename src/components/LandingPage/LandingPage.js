@@ -9,19 +9,55 @@ import {
   Container,
   Image,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import DetailedMap from "../WorldMapCOVID19/DetailedMap";
 import RegisterModal from "../Modal/RegisterModal";
+import axios from "axios";
+
 import classes from "./LandingPage.module.css";
 import { testdatacall } from "../../testDataCall";
 
-const LandingPage = () => {
+const POST_LOGIN = "";
+
+const LandingPage = (props) => {
   const { onlineUsers, loading, getOnlineUsers } = useContext(UserContext);
+  const { currentUser, getCurrentUser } = useContext(UserContext);
+
+  const [login, setLogin] = useState();
+  const [password, setPassword] = useState();
+
   const [userInfo, setUserInfo] = useState([]);
   useEffect(() => {
+    console.log(currentUser);
+    if (currentUser !== undefined) {
+      if (currentUser.id !== null && currentUser.id !== undefined) {
+        props.handleAuth(true);
+      } else {
+        props.handleAuth(false);
+      }
+    }
     getOnlineUsers();
-  }, []);
+  }, [currentUser]);
   console.log(onlineUsers);
 
+  const handlerLogin = (e) => {
+    setLogin(e);
+    console.log("login " + e);
+  };
+
+  const handlerPassword = (e) => {
+    setPassword(e);
+    console.log("Password " + e);
+  };
+
+  const handleSubmitLogin = (event) => {
+    let data = {
+      userName: login,
+      password: password,
+    };
+    getCurrentUser(data);
+    event.preventDefault();
+  };
   return (
     <Container fluid className="p-5">
       <Row>
@@ -30,8 +66,12 @@ const LandingPage = () => {
             <Form>
               <Card.Title>Sign In, Get connected</Card.Title>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter email"
+                  onChange={(e) => handlerLogin(e.target.value)}
+                />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
                 </Form.Text>
@@ -39,14 +79,22 @@ const LandingPage = () => {
 
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => handlerPassword(e.target.value)}
+                />
               </Form.Group>
 
               <Form.Group controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Check me out" />
               </Form.Group>
 
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={handleSubmitLogin}
+              >
                 Submit
               </Button>
               <RegisterModal />
@@ -59,26 +107,32 @@ const LandingPage = () => {
         </Col>
       </Row>
 
-      {userInfo === null ? (
+      {onlineUsers === null ? (
         ""
       ) : (
         <>
           <Card className="p-3">
             <Row className={classes.usersOnlineContainer}>
-              {userInfo.map((res) => (
+              {onlineUsers.map((res) => (
                 <Col xs={5} sm={3} md={3} lg={3} xl={2}>
-                  <div className={classes.usersOnline}>
-                    <Image rounded src={res.photo} alt="" />
-                    <Row className={classes.center}>
-                      <Col xs={10} sm={7}>
-                        <h6>{res.firstname}</h6>
-                      </Col>
-                      <Col xs={0}>
-                        <div id={classes.circle}></div>
-                      </Col>
-                    </Row>
-                    <h6>Uzbekistan</h6>
-                  </div>
+                  <Link to={"/Profile/" + res.id}>
+                    <div className={classes.usersOnline}>
+                      <Image
+                        rounded
+                        src="https://www.w3schools.com/w3images/avatar2.png"
+                        alt=""
+                      />
+                      <Row className={classes.center}>
+                        <Col xs={10} sm={7}>
+                          <h6>{res.userName}</h6>
+                        </Col>
+                        <Col xs={0}>
+                          <div id={classes.circle}></div>
+                        </Col>
+                      </Row>
+                      <h6>{res.country}</h6>
+                    </div>
+                  </Link>
                 </Col>
               ))}
             </Row>
