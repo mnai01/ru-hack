@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import Header from "./components/Header/Header";
-import UserInfo from "./components/UserInfo/userinfo";
+import UserInfo from "./components/UserInfo/Userinfo";
 import LandingPage from "./components/LandingPage/LandingPage";
 import {
   Route,
