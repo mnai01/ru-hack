@@ -16,7 +16,7 @@ import { UserProvider, UserContext } from "./userContext";
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
 
   // Helps with optimization
   const value = useMemo(() => ({ userInfo, setUserInfo }), [
@@ -35,13 +35,20 @@ function App() {
     );
   };
 
+  const handleAuth = (props) => {
+    setAuth(props);
+    console.log("AUTH " + auth);
+  };
+
   return (
     <UserProvider>
       <div className="App">
         <Router>
           <Header />
           <Switch>
-            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/">
+              <LandingPage handleAuth={handleAuth} />
+            </Route>
             <PrivateRoute
               exact
               path="/Profile/:id"
