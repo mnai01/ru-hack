@@ -8,7 +8,9 @@ const POST_URL =
   "https://cors-anywhere.herokuapp.com/https://far-friends.herokuapp.com/api/users";
 
 const RegisterModal = () => {
-  const [show, setShow] = useState(true);
+  const [validated, setValidated] = useState(false);
+  const [show, setShow] = useState(false);
+
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -16,7 +18,7 @@ const RegisterModal = () => {
   const [lastName, setLastName] = useState();
   const [gender, setGender] = useState("Male");
   const [country, setCountry] = useState("Afganistan");
-  const [age, setAge] = useState();
+  const [age, setAge] = useState(60);
 
   const handleFirstName = (e) => {
     setFirstName(e);
@@ -75,6 +77,19 @@ const RegisterModal = () => {
       });
   };
 
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      console.log("in here");
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      console.log("in here2");
+      handlePostRegister();
+    }
+    setValidated(true);
+  };
+
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
@@ -90,7 +105,7 @@ const RegisterModal = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <Form>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Row>
               <Form.Group as={Col} xs={6} controlId="formGridFirstName">
                 <Form.Label>First name</Form.Label>
@@ -98,6 +113,7 @@ const RegisterModal = () => {
                   onChange={(e) => handleFirstName(e.target.value)}
                   type="text"
                   placeholder="First name"
+                  required
                 />
               </Form.Group>
 
@@ -107,6 +123,7 @@ const RegisterModal = () => {
                   onChange={(e) => handleLastName(e.target.value)}
                   type="text"
                   placeholder="Last name"
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -118,6 +135,7 @@ const RegisterModal = () => {
                   onChange={(e) => handleEmail(e.target.value)}
                   type="Email"
                   placeholder="Email"
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -129,6 +147,7 @@ const RegisterModal = () => {
                   onChange={(e) => handleUsername(e.target.value)}
                   type="Email"
                   placeholder="Username"
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -137,9 +156,10 @@ const RegisterModal = () => {
               <Form.Group as={Col} xs={12} controlId="formGridPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  onChange={(e) => handleFirstName(e.target.value)}
-                  type="text"
+                  onChange={(e) => handlePassword(e.target.value)}
+                  type="password"
                   placeholder="Password"
+                  required
                 />
               </Form.Group>
             </Form.Row>
@@ -152,7 +172,8 @@ const RegisterModal = () => {
                   min={16}
                   max={110}
                   placeholder="Age"
-                  onChange={(e) => handleFirstName(e.target.value)}
+                  onChange={(e) => handleAge(e.target.value)}
+                  required
                 />
               </Form.Group>
 
@@ -161,6 +182,7 @@ const RegisterModal = () => {
                 <Form.Control
                   onChange={(e) => handleGender(e.target.value)}
                   as="select"
+                  required
                 >
                   <option>Male</option>
                   <option>Female</option>
@@ -175,6 +197,7 @@ const RegisterModal = () => {
                   onChange={(e) => handleCountry(e.target.value)}
                   as="select"
                   defaultValue="Choose..."
+                  required
                 >
                   <option disabled selected>
                     Choose Country...
@@ -456,13 +479,14 @@ const RegisterModal = () => {
                 </Form.Control>
               </Form.Group>
             </Form.Row>
+            <Button type="submit">hey</Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handlePostRegister}>
+          <Button variant="primary" onClick={handleSubmit}>
             Create Account
           </Button>
         </Modal.Footer>
