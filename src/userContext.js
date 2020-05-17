@@ -1,25 +1,38 @@
 import React, { createContext, useReducer } from "react";
 import userReducer from "./userReducer";
+import axios from "axios";
 import testData from "./assets/single_user.json";
 
 const initialState = {
-  user: {},
+  currentUser: {},
+  onlineUsers: [],
+  loading: true,
 };
 
 export const UserContext = createContext(initialState);
-
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
 
   //Actions
-  async function getUser() {
+  async function getCurrentUser() {
     try {
-      //api call
-      const res = testData;
-      console.log("from context");
-      console.log(res);
+      const res = "";
       //dispatch res data to action as payload
-      dispatch({ type: "GET_USER", payload: res });
+      dispatch({ type: "GET_CURRENT_USER", payload: res });
+    } catch (error) {
+      console.log("get user error");
+    }
+  }
+
+  async function getOnlineUsers() {
+    try {
+      const res = await axios.get(
+        "https://far-friends.herokuapp.com/api/users"
+      );
+      console.log("from context");
+      console.log(res.data);
+      //dispatch res data to action as payload
+      dispatch({ type: "GET_ONLINE_USERS", payload: res });
     } catch (error) {
       console.log("get user error");
     }
@@ -50,8 +63,11 @@ export const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        user: state.user,
-        getUser,
+        currentUser: state.currentUser,
+        onlineUsers: state.onlineUsers,
+        loading: state.loading,
+        getCurrentUser,
+        getOnlineUsers,
         getRecentOnlineUsers,
         getFilteredUsers,
       }}

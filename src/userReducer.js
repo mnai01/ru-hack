@@ -1,18 +1,27 @@
 export default (state, action) => {
   switch (action.type) {
-    case "GET_USER":
-      console.log(action.payload);
+    case "GET_CURRENT_USER":
       return {
         ...state,
-        user: action.payload,
+        loading: false,
+        currentUser: action.payload,
+      };
+    case "GET_ONLINE_USERS":
+      console.log(action.payload.data);
+      return {
+        ...state,
+        loading: false,
+        onlineUsers: action.payload.data,
       };
     case "GET_RECENT_ONLINE_USERS":
       return {
         ...state,
+        loading: false,
       };
     case "GET_FILTERED_USERS":
       return {
         ...state,
+        loading: false,
       };
     default:
       return state;
