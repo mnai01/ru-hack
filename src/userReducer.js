@@ -22,6 +22,7 @@ export default (state, action) => {
       return {
         ...state,
         loading: false,
+        onlineUsers: action.payload,
       };
     case "GET_USER_BY_ID":
       return {
