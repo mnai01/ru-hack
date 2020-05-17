@@ -20,7 +20,7 @@ const SearchPage = () => {
         <Col xs={12} sm={5} md={4} lg={3} xl={2}>
           <UserFilter />
         </Col>
-        <Col>
+        <Col xl={10}>
           <UserTiles />
         </Col>
       </Row>
