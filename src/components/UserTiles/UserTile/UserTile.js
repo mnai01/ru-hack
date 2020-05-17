@@ -4,40 +4,33 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import avi from "../../../assets/avi.png";
-export const UserTile = () => {
+export const UserTile = (props) => {
   return (
-    <div className={classes.Tile}>
-      <span>
+    <Container>
+      <div className={classes.Highlight}>
         <Row>
-          <img
-            width={150}
-            height={"auto"}
-            className="m-1"
-            src={avi}
-            alt="Generic placeholder"
-          />
-
-          <Col className={classes.Info}>
-            <Row>First Name Last Name</Row>
-            <Row>This is my location</Row>
+          <Col className="p-0" xs={12} sm={3} xl={2}>
+            <img width={150} src={avi} alt="Generic placeholder" />
             <Row>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <p>Online Now</p>
             </Row>
           </Col>
-          <Col>2</Col>
-          <Row>2</Row>
+
+          <Col xs={0} sm={12} md={8} xl={9}>
+            <Row>
+              {props.user.firstName}
+              {props.user.lastName}
+            </Row>
+            <Row>{props.user.country}</Row>
+            <Row>{props.user.userName}</Row>
+            <Row>{props.user.gender}</Row>
+            <Row>{props.user.onlineStatus}</Row>
+            <Row>{props.user.id}</Row>
+          </Col>
         </Row>
-        <Row>
-          <p className="pl-4">Online Now</p>
-        </Row>
-      </span>
-    </div>
+        <Row></Row>
+      </div>
+    </Container>
   );
 };
 

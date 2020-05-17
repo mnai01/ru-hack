@@ -18,3 +18,8 @@
   padding-left: 5px;
   top: 0;
 }
+
+.Highlight {
+  margin-bottom: 15px;
+  background-color: rgb(224, 224, 224);
+}
