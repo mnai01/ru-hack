@@ -28,7 +28,7 @@ const DetailedMap = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data["response"]);
+        //   console.log(data["response"]);
         setMapDetails(data["response"]);
         setLoading(false);
       })
@@ -120,7 +120,7 @@ const DetailedMap = () => {
             key = "LA";
             break;
           default:
-            console.log(countryname);
+            //     console.log(countryname);
             key = undefined;
         }
       }
