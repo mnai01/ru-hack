@@ -15,16 +15,13 @@ import classes from "./LandingPage.module.css";
 import { testdatacall } from "../../testDataCall";
 
 const LandingPage = () => {
-  const { user, getUser } = useContext(UserContext);
+  const { onlineUsers, loading, getOnlineUsers } = useContext(UserContext);
   const [userInfo, setUserInfo] = useState([]);
   useEffect(() => {
-    setTimeout(async () => {
-      const data = await testdatacall();
-      await setUserInfo(data);
-    }, 2000);
-    getUser();
+    getOnlineUsers();
   }, []);
-  console.log(user);
+  console.log(onlineUsers);
+
   return (
     <Container fluid className="p-5">
       <Row>
