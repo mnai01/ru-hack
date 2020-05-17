@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, FormGroup, Col, Row } from "react-bootstrap";
-import { array } from "../../CountryData";
+import { countryOptions } from "../../CountryData";
 import axios from "axios";
 
 import classes from "./RegisterModal.module.css";
@@ -200,7 +200,7 @@ const RegisterModal = () => {
                   defaultValue="Choose..."
                   required
                 >
-                  {array}
+                  {countryOptions}
                 </Form.Control>
               </Form.Group>
             </Form.Row>
