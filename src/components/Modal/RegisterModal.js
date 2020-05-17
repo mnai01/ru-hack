@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, FormGroup, Col, Row } from "react-bootstrap";
 import { countryOptions } from "../../CountryData";
+import { languageOptions } from "../../LanguageData";
+
 import axios from "axios";
 
 import classes from "./RegisterModal.module.css";
 
-const POST_URL =
-  "https://cors-anywhere.herokuapp.com/https://far-friends.herokuapp.com/api/users";
+const POST_URL = "https://far-friends.herokuapp.com/api/users";
 
 const RegisterModal = () => {
   const [validated, setValidated] = useState(false);
@@ -18,8 +19,10 @@ const RegisterModal = () => {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [gender, setGender] = useState("Male");
-  const [country, setCountry] = useState("Afganistan");
+  const [country, setCountry] = useState();
   const [age, setAge] = useState(60);
+  const [spokenLanguage, setSpokenLanguage] = useState();
+  const [learningLanguage, setLearningLanguage] = useState();
 
   const handleFirstName = (e) => {
     setFirstName(e);
@@ -58,19 +61,51 @@ const RegisterModal = () => {
     console.log(e);
   };
 
+  const handleSpokenLanguage = (e) => {
+    setSpokenLanguage(e);
+    console.log(e);
+  };
+
+  const HandleLearningLanguage = (e) => {
+    setLearningLanguage(e);
+    console.log(e);
+  };
+
+  let config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
   const handlePostRegister = () => {
     let data = {
       userName: username,
+      password: password,
       firstName: firstName,
       lastName: lastName,
+      email: email,
       gender: gender,
       country: country,
       age: age,
+      spokenLanguages: spokenLanguage,
+      interestLanguages: learningLanguage,
     };
+    console.log(POST_URL, data);
     axios
-      .post(POST_URL, data)
+      .post(POST_URL, {
+        userName: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        gender: gender,
+        country: country,
+        age: age,
+        spokenLanguages: spokenLanguage,
+        interestLanguages: learningLanguage,
+      })
       .then((res) => {
-        setShow(false);
+        // setShow(false);
         console.log(res);
       })
       .catch((err) => {
@@ -82,10 +117,15 @@ const RegisterModal = () => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       console.log("in here");
+      // this prevents html elements from executing there functions further
+      // but it lets mine continue, for instance when u submit a form
+      // it will automatically refresh cuz the html element form is created that way
+      // but prevemtDefault stops that from occuring but maintains ur functions still.
       event.preventDefault();
       event.stopPropagation();
     } else {
       console.log("in here2");
+      event.preventDefault();
       handlePostRegister();
     }
     setValidated(true);
@@ -146,7 +186,7 @@ const RegisterModal = () => {
                 <Form.Label>Username</Form.Label>
                 <Form.Control
                   onChange={(e) => handleUsername(e.target.value)}
-                  type="Email"
+                  type="text"
                   placeholder="Username"
                   required
                 />
@@ -197,10 +237,42 @@ const RegisterModal = () => {
                 <Form.Control
                   onChange={(e) => handleCountry(e.target.value)}
                   as="select"
-                  defaultValue="Choose..."
                   required
                 >
+                  <option disabled selected>
+                    Country
+                  </option>
                   {countryOptions}
+                </Form.Control>
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col} xs={6} controlId="formGridAge">
+                <Form.Label>Native Language</Form.Label>
+                <Form.Control
+                  as="select"
+                  onChange={(e) => handleSpokenLanguage(e.target.value)}
+                  required
+                >
+                  <option disabled selected>
+                    Native Language
+                  </option>
+                  {languageOptions}
+                </Form.Control>
+              </Form.Group>
+
+              <Form.Group as={Col} xs={6} controlId="formGridAge">
+                <Form.Label>Language interests</Form.Label>
+                <Form.Control
+                  onChange={(e) => HandleLearningLanguage(e.target.value)}
+                  as="select"
+                  required
+                >
+                  <option disabled selected>
+                    Language interests
+                  </option>
+                  {languageOptions}
                 </Form.Control>
               </Form.Group>
             </Form.Row>
