@@ -90,9 +90,8 @@ const UserInfo = (props) => {
                       <p>(last seen 5 min ago)</p>
                     </Row>
                     <h6>Country: {selectedUser.country}</h6>
-                    <h6>Speaks: {selectedUser.country}</h6>
-                    <h6>Interested in: </h6>
-                    <h6>Speaks: </h6>
+                    <h6>Speaks: {selectedUser.languagesSpoken}</h6>
+                    <h6>Interested in: {selectedUser.languagesInterested}</h6>
                   </Col>
                 </Row>
               </Media.Body>
