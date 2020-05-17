@@ -44,7 +44,7 @@ function App() {
             <Route exact path="/" component={LandingPage} />
             <PrivateRoute
               exact
-              path="/Profile"
+              path="/Profile/:id"
               component={UserInfo}
               auth={auth}
             />
