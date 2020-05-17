@@ -1,6 +1,6 @@
 import React from "react";
 
-export let array = [
+export const countryOptions = [
   <option value="Afganistan">Afghanistan</option>,
   <option value="Albania">Albania</option>,
   <option value="Algeria">Algeria</option>,
