@@ -12,7 +12,7 @@ import {
 import UserFilter from "./components/UserFilter/UserFilter";
 import UserTile from "./components/UserTiles/UserTile/UserTile";
 import SearchPage from "./components/SearchPage/SearchPage";
-import { userContext } from "./userContext";
+import { UserProvider, UserContext } from "./userContext";
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
@@ -36,11 +36,11 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Router>
-        <Header />
-        <Switch>
-          <userContext.Provider value={value}>
+    <UserProvider>
+      <div className="App">
+        <Router>
+          <Header />
+          <Switch>
             <Route exact path="/" component={LandingPage} />
             <PrivateRoute
               exact
@@ -60,10 +60,10 @@ function App() {
               component={SearchPage}
               auth={auth}
             />
-          </userContext.Provider>
-        </Switch>
-      </Router>
-    </div>
+          </Switch>
+        </Router>
+      </div>
+    </UserProvider>
   );
 }
 
