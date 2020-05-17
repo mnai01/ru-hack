@@ -6,6 +6,7 @@ import testData from "./assets/single_user.json";
 const initialState = {
   currentUser: {},
   onlineUsers: [],
+  selectedUser: {},
   loading: true,
 };
 
@@ -60,16 +61,33 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  async function getUserById(props) {
+    try {
+      const res = await axios.get(
+        "https://far-friends.herokuapp.com/api/users/" + props
+      );
+      console.log("from context");
+      console.log(res.data);
+      let data = res.data;
+      //dispatch res data to action as payload
+      dispatch({ type: "GET_USER_BY_ID", payload: data });
+    } catch (error) {
+      //dispatch error action?
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
         currentUser: state.currentUser,
         onlineUsers: state.onlineUsers,
+        selectedUser: state.selectedUser,
         loading: state.loading,
         getCurrentUser,
         getOnlineUsers,
         getRecentOnlineUsers,
         getFilteredUsers,
+        getUserById,
       }}
     >
       {children}
