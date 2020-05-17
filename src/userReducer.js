@@ -23,6 +23,12 @@ export default (state, action) => {
         ...state,
         loading: false,
       };
+    case "GET_USER_BY_ID":
+      return {
+        ...state,
+        loading: false,
+        selectedUser: action.payload,
+      };
     default:
       return state;
   }
