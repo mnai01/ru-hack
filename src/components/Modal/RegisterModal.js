@@ -63,12 +63,12 @@ const RegisterModal = () => {
 
   const handleSpokenLanguage = (e) => {
     setSpokenLanguage(e);
-    console.log(e);
+    console.log("spoken " + e);
   };
 
   const HandleLearningLanguage = (e) => {
     setLearningLanguage(e);
-    console.log(e);
+    console.log("learning " + e);
   };
 
   let config = {
@@ -87,23 +87,12 @@ const RegisterModal = () => {
       gender: gender,
       country: country,
       age: age,
-      spokenLanguages: spokenLanguage,
-      interestLanguages: learningLanguage,
+      languagesSpoken: spokenLanguage,
+      languagesInterested: learningLanguage,
     };
     console.log(POST_URL, data);
     axios
-      .post(POST_URL, {
-        userName: username,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        gender: gender,
-        country: country,
-        age: age,
-        spokenLanguages: spokenLanguage,
-        interestLanguages: learningLanguage,
-      })
+      .post(POST_URL, data)
       .then((res) => {
         // setShow(false);
         console.log(res);
@@ -276,7 +265,13 @@ const RegisterModal = () => {
                 </Form.Control>
               </Form.Group>
             </Form.Row>
-            <Button type="submit">hey</Button>
+
+            <Form.Row>
+              <Form.Group as={Col} xs={12} controlId="ControlTextareaBio">
+                <Form.Label>Add a bio</Form.Label>
+                <Form.Control as="textarea" rows="3" />
+              </Form.Group>
+            </Form.Row>
           </Form>
         </Modal.Body>
         <Modal.Footer>
